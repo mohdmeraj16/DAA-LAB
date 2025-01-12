@@ -1,0 +1,39 @@
+#include <iostream>
+#include <algorithm>
+using namespace std;
+struct Item{
+    int profit, weight;
+};
+bool compare(Item a, Item b){
+    return (double)a.profit / a.weight > (double)b.profit / b.weight;
+}
+double fractionalKnap(int W, Item items[], int N){
+    sort(items, items + N, compare);
+    double maxValue = 0.0;
+    for(int i = 0; i < N; i++){
+        if(W >= items[i].weight){
+            maxValue += items[i]. profit;
+            W -= items[i].weight;
+        }
+        else{
+            maxValue += items[i].profit * ((double)W / items[i].weight);
+            break;
+        }
+    }
+    return maxValue;
+}
+int main()
+{
+    int n, W;
+    cout<<"Enter the number of objects and knapsack capcity : ";
+    cin>>n>>W;
+    Item items[n];
+    cout<<"Enter the profit and weight of each item : ";
+    for(int i = 0; i < n; i++){
+        cin>>items[i].profit>>items[i].weight;
+    }
+    double result = fractionalKnap(W, items, n);
+    cout<<"result is "<<result;
+
+    return 0;
+}
