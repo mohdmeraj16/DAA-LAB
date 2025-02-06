@@ -37,3 +37,14 @@ int main()
 
     return 0;
 }
+
+OUTPUT :-
+Enter the number of objects and knapsack capcity : 3
+20
+Enter the profit and weight of each item : 25
+18
+24
+15
+25
+10
+result is 41
