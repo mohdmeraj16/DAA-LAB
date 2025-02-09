@@ -49,3 +49,17 @@ int main()
 
     return 0;
 }
+
+OUTPUT :-
+Enter no of item : 4
+Enter profit of item : 2
+3
+4
+1
+Enter weight of item : 3
+4
+5
+6
+Enter capacity of knapsack :8
+maximum profit 6
+selected items are 3 1 
