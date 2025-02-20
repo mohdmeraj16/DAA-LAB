@@ -1,3 +1,5 @@
+// Code and Analyze solutions for knapsack using dynammic approach.
+
 #include <iostream>
 using namespace std;
 struct Item{
@@ -50,16 +52,16 @@ int main()
     return 0;
 }
 
-OUTPUT :-
-Enter no of item : 4
-Enter profit of item : 2
-3
-4
-1
-Enter weight of item : 3
-4
-5
-6
-Enter capacity of knapsack :8
-maximum profit 6
-selected items are 3 1 
+//OUTPUT :-
+//Enter no of item : 4
+//Enter profit of item : 2
+//3
+//4
+//1
+//Enter weight of item : 3
+//4
+//5
+//6
+//Enter capacity of knapsack :8
+//maximum profit 6
+//selected items are 3 1 
