@@ -1,3 +1,5 @@
+// Code and Analyze solutions for knapsack using greedy approach.
+
 #include <iostream>
 #include <algorithm>
 using namespace std;
@@ -38,7 +40,7 @@ int main()
     return 0;
 }
 
-OUTPUT :-
+/* OUTPUT :-
 Enter the number of objects and knapsack capcity : 3
 20
 Enter the profit and weight of each item : 25
@@ -47,4 +49,4 @@ Enter the profit and weight of each item : 25
 15
 25
 10
-result is 41
+result is 41    */
