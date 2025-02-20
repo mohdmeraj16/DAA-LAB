@@ -1,3 +1,5 @@
+// Code and Analyze to find an Optimal Solution to TSP using dynamic programming.
+
 #include <iostream>
 using namespace std;
 const int INF = 10000000;
@@ -40,22 +42,22 @@ int main()
     return 0;
 }
 
-OUTPUT :-
-No of cities :4
-Distance Matrix :0
-10
-15
-20
-5
-0
-9
-10
-6
-13
-0
-12
-8
-8
-9
-0
-Minimum cost :35
+//OUTPUT :-
+//No of cities :4
+//Distance Matrix :0
+//10
+//15
+//20
+//5
+//0
+//9
+//10
+//6
+//13
+//0
+//12
+//8
+//8
+//9
+//0
+//Minimum cost :35
