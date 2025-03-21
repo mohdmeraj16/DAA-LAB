@@ -1,0 +1,102 @@
+//Implementing an application of BFS such as to check whether a given graph is bipartite.
+#include <iostream>
+using namespace std;
+#define Max 100
+
+int graph[Max][Max];
+int color[Max];
+int queue[Max];
+int front, rear;
+
+void enqueue(int x) {
+    queue[rear++] = x;
+}
+
+int dequeue() {
+    return queue[front++];
+}
+
+bool isEmpty() {
+    return front == rear;
+}
+
+bool isBipartite(int start, int n) {
+    front = rear = 0;
+    enqueue(start);
+    color[start] = 0;
+    while (!isEmpty()) {
+        int node = dequeue();
+        for (int i = 0; i < n; i++) {
+            if (graph[node][i]) {
+                if (color[i] == -1) {
+                    color[i] = 1 - color[node];
+                    enqueue(i);
+                } else if (color[i] == color[node]) {
+                    return false;
+                }
+            }
+        }
+    }
+    return true;
+}
+
+bool checkBipartite(int n) {
+    for (int i = 0; i < n; i++) {
+        color[i] = -1;
+    }
+    for (int i = 0; i < n; i++) {
+        if (color[i] == -1) {
+            if (!isBipartite(i, n)) {
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
+int main() {
+    int n, e;
+    cout << "Enter number of vertices and edges: ";
+    cin >> n >> e;
+
+    // Initialize the graph
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            graph[i][j] = 0;
+        }
+    }
+
+    cout << "Enter edges (u v) format:\n";
+    for (int i = 0; i < e; i++) {
+        int u, v;
+        cin >> u >> v; // Read the edges
+        graph[u][v] = 1;
+        graph[v][u] = 1;
+    }
+
+    // Check if the graph is bipartite after all edges are added
+    if (checkBipartite(n)) {
+        cout << "The graph is bipartite." << endl;
+    } else {
+        cout << "The graph is NOT bipartite." << endl;
+    }
+
+    return 0;
+}
+
+
+//output :-
+// Enter number of vertices and edges: 4 4
+// Enter edges (u v) format:
+// 0 1
+// 1 2
+// 2 3
+// 3 0
+// The graph is bipartite.
+
+// Enter number of vertices and edges: 3 3
+// Enter edges (u v) format:
+// 0 1
+// 1 2
+// 2 0
+// The graph is NOT bipartite.
