@@ -1,0 +1,59 @@
+// Code and analyze to find shortest paths in a graph with arbitrary edge weights using Flyods’ algorithm.
+
+#include <iostream>
+#define INF 1000000 // A large value to represent "infinity"
+#define V 4         // Number of vertices in the graph
+using namespace std;
+// Function to implement Floyd-Warshall Algorithm
+void floydWarshall(int graph[V][V]) {
+    int dist[V][V];
+    // Copy input graph to distance matrix
+    for (int i = 0; i< V; i++) {
+        for (int j = 0; j < V; j++) {
+dist[i][j] = graph[i][j]; }}
+    // Floyd-Warshall Algorithm
+    for (int k = 0; k < V; k++) { // Intermediate vertex
+        for (int i = 0; i< V; i++) { // Source vertex
+            for (int j = 0; j < V; j++) { // Destination vertex
+                // Check if the new path is shorter
+                if (dist[i][k] != INF &&dist[k][j] != INF) {
+                    if (dist[i][j] >dist[i][k] + dist[k][j]) {
+dist[i][j] = dist[i][k] + dist[k][j];
+} }}}}
+    // Detect negative weight cycles
+    for (int i = 0; i< V; i++) {
+        if (dist[i][i] < 0) {
+cout<< "Negative weight cycle detected!" <<endl;
+            return;
+        }}
+        // Print the shortest distance matrix
+cout<< "Shortest distances between every pair of vertices:\n";
+    for (int i = 0; i< V; i++) {
+        for (int j = 0; j < V; j++) {
+            if (dist[i][j] == INF) cout<< "INF ";
+            else cout<<dist[i][j] << " ";
+        }
+cout<<endl;
+    }
+}
+
+// Main Function
+int main() {
+    int graph[V][V] = {
+{ 0, 3, INF, 7 },
+{ 8, 0, 2, INF },
+{ 5, INF, 0, 1 },
+{ 2, INF, INF, 0 }
+    };
+
+floydWarshall(graph);
+    return 0;
+}
+
+
+//OUTPUT :-
+//Shortest distances between every pair of vertices:
+//0 3 5 6 
+//5 0 2 3 
+//3 6 0 1 
+//2 5 7 0 
