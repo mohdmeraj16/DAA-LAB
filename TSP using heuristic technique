@@ -1,0 +1,57 @@
+// Coding any real world problem or TSP algorithm using any heuristic technique
+
+#include <iostream>
+#define N 5 // Number of cities
+#define INF 9999 // Large value representing infinity
+using namespace std;
+// Function to find the nearest unvisited city
+int findNearestCity(int currentCity, bool visited[], int distanceMatrix[N][N]) {
+	int minDistance = INF;
+	int nearestCity = -1;
+	for (int i = 0; i < N; i++) {
+		if (!visited[i] && distanceMatrix[currentCity][i] < minDistance) {
+			minDistance = distanceMatrix[currentCity][i];
+			nearestCity = i;
+		}
+	}
+	return nearestCity;
+}
+// TSP using Nearest Neighbor Algorithm
+void tspNearestNeighbor(int distanceMatrix[N][N], int startCity) {
+	bool visited[N] = {false}; // Track visited cities
+	int currentCity = startCity;
+	visited[currentCity] = true;
+	int totalCost = 0;
+	cout << "TSP Route: " << currentCity << " -> ";
+	for (int i = 1; i < N; i++) {
+		int nextCity = findNearestCity(currentCity, visited, distanceMatrix);
+		if (nextCity == -1) break; // No more cities to visit
+		visited[nextCity] = true;
+		totalCost += distanceMatrix[currentCity][nextCity];
+		cout << nextCity << " -> ";
+		currentCity = nextCity;
+	}
+// Return to start city
+	totalCost += distanceMatrix[currentCity][startCity];
+	cout << startCity << endl;
+	cout << "Total Distance: " << totalCost << endl;
+}
+// Main function
+int main() {
+// Distance matrix (example with 5 cities)
+	int distanceMatrix[N][N] = {
+		{0, 10, 15, 20, 25},
+		{10, 0, 35, 25, 30},
+		{15, 35, 0, 30, 10},
+		{20, 25, 30, 0, 5},
+		{25, 30, 10, 5, 0}
+	};
+	int startCity = 0; // Starting city
+	tspNearestNeighbor(distanceMatrix, startCity);
+	return 0;
+}
+
+
+// OUTPUT :-
+// TSP Route: 0 -> 1 -> 3 -> 4 -> 2 -> 0
+// Total Distance: 65
