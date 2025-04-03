@@ -1,0 +1,97 @@
+// Code and analyze to find shortest paths in a graph with positive edge weights using Dijkstra’s algorithm.
+
+#include <iostream>
+using namespace std;
+
+#define MAX 100 // Maximum number of vertices
+#define INF 99999 // Large number representing "infinity"
+
+int graph[MAX][MAX]; // Adjacency matrix
+bool visited[MAX]; // Track visited nodes
+int distance[MAX]; // Store shortest distances
+
+// Find the vertex with the minimum distance that hasn't been visited yet
+int findMinVertex(int n) {
+    int minVertex = -1;
+    for (int i = 0; i < n; i++) {
+        if (!visited[i] && (minVertex == -1 || distance[i] < distance[minVertex])) {
+            minVertex = i;
+        }
+    }
+    return minVertex;
+}
+
+// Dijkstra's Algorithm
+void dijkstra(int n, int source) {
+    for (int i = 0; i < n; i++) {
+        distance[i] = INF; // Initialize distances to "infinity"
+        visited[i] = false; // Mark all nodes as unvisited
+    }
+    distance[source] = 0; // Distance to source is 0
+
+    for (int i = 0; i < n - 1; i++) {
+        int u = findMinVertex(n);
+        if (u == -1) break; // If no more reachable vertices
+        visited[u] = true;
+
+        for (int v = 0; v < n; v++) {
+            if (graph[u][v] && !visited[v]) { // If there is an edge and v is unvisited
+                int newDist = distance[u] + graph[u][v];
+                if (newDist < distance[v]) {
+                    distance[v] = newDist;
+                }
+            }
+        }
+    }
+}
+
+// Main Function
+int main() {
+    int n, e;
+    cout << "Enter number of vertices and edges: ";
+    cin >> n >> e;
+
+    // Initialize adjacency matrix with 0 (no edges)
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            graph[i][j] = 0;
+        }
+    }
+
+    cout << "Enter edges (u v weight) format:\n";
+    for (int i = 0; i < e; i++) {
+        int u, v, w;
+        cin >> u >> v >> w;
+        graph[u][v] = w;
+        graph[v][u] = w; // Undirected graph
+    }
+
+    int source;
+    cout << "Enter the source vertex: ";
+    cin >> source;
+
+    dijkstra(n, source);
+    cout << "Shortest distances from source " << source << ":\n";
+    for (int i = 0; i < n; i++) {
+        cout << "To " << i << " -> " << (distance[i] == INF ? -1 : distance[i]) << endl;
+    }
+
+    return 0;
+}
+
+// OUTPUT :-
+// Enter number of vertices and edges: 5 6
+// Enter edges (u v weight) format:
+// 0 1 2
+// 0 2 4
+// 1 2 1
+// 1 3 7
+// 2 4 3
+// 3 4 1
+// Enter the source vertex: 0
+// Shortest distances from source 0:
+// To 0 -> 0
+// To 1 -> 2
+// To 2 -> 3
+// To 3 -> 9
+// To 4 -> 6
